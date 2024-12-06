@@ -21,7 +21,7 @@ namespace SeatsSuggestions.Tests
         public void Allow_us_to_retrieve_AuditoriumLayout_for_a_given_ShowId()
         {
             var eventRepository = new AuditoriumLayoutRepository();
-            var theaterDto = eventRepository.GetAuditoriumLayoutFor(showId: "2");
+            var theaterDto = eventRepository.GetAuditoriumSeatingFor(showId: "2");
 
             Check.That(theaterDto.Rows).HasSize(6);
             Check.That(theaterDto.Corridors).HasSize(2);
