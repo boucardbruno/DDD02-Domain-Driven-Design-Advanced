@@ -1,10 +1,10 @@
 package com.octo.technology.SeatsSuggestionsAcceptanceTests;
 
+import com.google.common.collect.ImmutableList;
 import com.octo.technology.ExternalDependencies.auditoriumlayoutrepository.AuditoriumDto;
 import com.octo.technology.ExternalDependencies.auditoriumlayoutrepository.AuditoriumLayoutRepository;
 import com.octo.technology.ExternalDependencies.auditoriumlayoutrepository.SeatDto;
 import com.octo.technology.ExternalDependencies.reservationsprovider.ReservationsProvider;
-import com.google.common.collect.ImmutableList;
 import com.octo.technology.ExternalDependencies.reservationsprovider.ReservedSeatsDto;
 
 import java.util.HashMap;
@@ -19,6 +19,18 @@ public class AuditoriumSeatingAdapter {
     public AuditoriumSeatingAdapter(AuditoriumLayoutRepository auditoriumLayoutRepository, ReservationsProvider reservationsProvider) {
         this.auditoriumLayoutRepository = auditoriumLayoutRepository;
         this.reservedSeatsRepository = reservationsProvider;
+    }
+
+    private static PricingCategory convertCategory(int seatDtoCategory) {
+        return PricingCategory.valueOf(seatDtoCategory);
+    }
+
+    private static int extractNumber(String name) {
+        return Integer.parseUnsignedInt(name.substring(1));
+    }
+
+    private static String extractRowName(String name) {
+        return Character.toString(name.charAt(0));
     }
 
     public AuditoriumSeating getAuditoriumSeating(String showId) {
@@ -49,17 +61,5 @@ public class AuditoriumSeatingAdapter {
         }
 
         return new AuditoriumSeating(rows);
-    }
-
-    private static PricingCategory convertCategory(int seatDtoCategory) {
-        return PricingCategory.valueOf(seatDtoCategory);
-    }
-
-    private static int extractNumber(String name) {
-        return Integer.parseUnsignedInt(name.substring(1));
-    }
-
-    private static String extractRowName(String name) {
-        return Character.toString(name.charAt(0));
     }
 }

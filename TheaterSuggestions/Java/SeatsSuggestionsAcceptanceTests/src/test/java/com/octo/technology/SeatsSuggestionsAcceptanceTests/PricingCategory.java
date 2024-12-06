@@ -12,17 +12,18 @@ public enum PricingCategory {
     Third(3),
     Mixed(4);
 
-    private int value;
     private static Map map = new HashMap();
-
-    private PricingCategory(int value) {
-        this.value = value;
-    }
 
     static {
         for (PricingCategory pageType : PricingCategory.values()) {
             map.put(pageType.value, pageType);
         }
+    }
+
+    private int value;
+
+    private PricingCategory(int value) {
+        this.value = value;
     }
 
     public static PricingCategory valueOf(int pageType) {
