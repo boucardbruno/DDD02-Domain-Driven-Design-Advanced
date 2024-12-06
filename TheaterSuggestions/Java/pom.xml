@@ -7,7 +7,7 @@
     <artifactId>SeatsSuggestionsParent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
@@ -15,11 +15,17 @@
 
     <modules>
         <module>ExternalDependencies</module>
+        <module>SeatsSuggestions</module>
         <module>SeatsSuggestionsAcceptanceTests</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.baasie</groupId>
+                <artifactId>SeatsSuggestions</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.baasie</groupId>
                 <artifactId>ExternalDependencies</artifactId>
@@ -86,7 +92,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
     <build>
         <plugins>

@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -61,10 +62,12 @@
     <PackageReference Include="NSubstitute" Version="5.3.0" />
     <PackageReference Include="NUnit" Version="4.2.2" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="Value" Version="1.1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ExternalDependencies\ExternalDependencies.csproj" />
+    <ProjectReference Include="..\SeatsSuggestions\SeatsSuggestions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

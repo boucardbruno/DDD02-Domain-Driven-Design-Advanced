@@ -140,10 +140,6 @@ _TeamCity*
 _NCrunch_*
 .*crunch*.local.xml
 nCrunchTemp_*
-*.ncrunch*.user
-_NCrunch_*
-*.crunch.xml
-nCrunchTemp_*
 
 # MightyMoose
 *.mm.*
@@ -332,4 +328,3 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-/TheaterSuggestions/CSharp/SeatsSuggestions.v3.ncrunchsolution

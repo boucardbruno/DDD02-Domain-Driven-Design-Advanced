@@ -17,6 +17,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.baasie</groupId>
+			<artifactId>SeatsSuggestions</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.baasie</groupId>
 			<artifactId>ExternalDependencies</artifactId>
 		</dependency>
 
