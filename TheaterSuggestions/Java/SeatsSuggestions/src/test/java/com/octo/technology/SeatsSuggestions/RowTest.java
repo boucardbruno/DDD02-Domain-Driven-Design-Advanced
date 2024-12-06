@@ -1,5 +1,7 @@
 package com.octo.technology.SeatsSuggestions;
 
+import com.octo.technology.SeatsSuggestions.DeepModel.OfferSeatingPlacesNearerTheMiddleOfTheRow;
+import com.octo.technology.SeatsSuggestions.DeepModel.SeatWithDistance;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class RowTest {
         assertThat(newRowWithNewSeatAdded).isNotEqualTo(rowFirstInstance);
     }
 
+
     @Test
     public void offer_seats_from_the_middle_of_the_row_when_the_row_size_is_even_and_party_size_is_greater_than_one() {
         int partySize = 2;
@@ -45,11 +48,12 @@ public class RowTest {
 
         Row row = new Row("A", new ArrayList<>(Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10)));
 
-        List<Seat> seats = offerSeatsNearerTheMiddleOfTheRow(row, PricingCategory.Mixed).stream().limit(partySize).collect(Collectors.toList());
+        List<SeatWithDistance> seatsWithDistance = new ArrayList<>(OfferSeatingPlacesNearerTheMiddleOfTheRow
+                .buildSeatingPlaceCloserTheMiddleOfTheRow(row, new SuggestionRequest(partySize, PricingCategory.Mixed)));
 
-        List<Seat> seatsSorted = seats.stream().sorted(Comparator.comparingInt(Seat::number)).collect(Collectors.toList());
+        List<Seat> seats = seatsWithDistance.stream().map(SeatWithDistance::seat).limit(partySize).collect(Collectors.toList());
 
-        assertThat(seatsSorted).containsExactly(a5, a6);
+        assertThat(seats).containsExactly(a5, a6);
     }
 
 
@@ -69,16 +73,44 @@ public class RowTest {
 
         Row row = new Row("A", new ArrayList<>(Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9)));
 
-        List<Seat> seats =
-                offerSeatsNearerTheMiddleOfTheRow(row, PricingCategory.Mixed).stream().limit(partySize).collect(Collectors.toList());
+        List<SeatWithDistance> seatsWithDistance = OfferSeatingPlacesNearerTheMiddleOfTheRow
+                .buildSeatingPlaceCloserTheMiddleOfTheRow(row, new SuggestionRequest(partySize, PricingCategory.Mixed)).stream().limit(partySize).collect(Collectors.toList());
 
-        List<Seat> seatsSorted = seats.stream().sorted(Comparator.comparingInt(Seat::number)).collect(Collectors.toList());
+        List<Seat> seats = seatsWithDistance.stream().map(SeatWithDistance::seat).sorted(Comparator.comparingInt(Seat::number)).collect(Collectors.toList());
 
-        assertThat(seatsSorted).containsExactly(a2, a3, a5, a6, a7);
+        assertThat(seats).containsExactly(a2, a3, a5, a6, a7);
     }
 
-    public List<Seat> offerSeatsNearerTheMiddleOfTheRow(Row row, PricingCategory pricingCategory) {
-        // TODO: Implement your logic here
+    @Test
+    public void Offer_adjacent_seats_nearer_the_middle_of_the_row_when_the_middle_is_not_reserved()
+    {
+        int partySize = 3;
+
+        Seat a1 = new Seat("A", 1, PricingCategory.Second, SeatAvailability.Available);
+        Seat a2 = new Seat("A", 2, PricingCategory.Second, SeatAvailability.Available);
+        Seat a3 = new Seat("A", 3, PricingCategory.First, SeatAvailability.Available);
+        Seat a4 = new Seat("A", 4, PricingCategory.First, SeatAvailability.Reserved);
+        Seat a5 = new Seat("A", 5, PricingCategory.First, SeatAvailability.Available);
+        Seat a6 = new Seat("A", 6, PricingCategory.First, SeatAvailability.Available);
+        Seat a7 = new Seat("A", 7, PricingCategory.First, SeatAvailability.Available);
+        Seat a8 = new Seat("A", 8, PricingCategory.First, SeatAvailability.Reserved);
+        Seat a9 = new Seat("A", 9, PricingCategory.Second, SeatAvailability.Available);
+        Seat a10 = new Seat("A", 10, PricingCategory.Second, SeatAvailability.Available);
+
+        Row row = new Row("A",  new ArrayList<>(Arrays.asList(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10 )));
+
+        List<SeatWithDistance> seatsWithDistance =
+                OfferSeatingPlacesNearerTheMiddleOfTheRow
+                        .buildSeatingPlaceCloserTheMiddleOfTheRow(row,
+                        new SuggestionRequest(5, PricingCategory.Mixed));
+
+        List<Seat> seats = OfferAdjacentSeats(seatsWithDistance, partySize);
+
+        assertThat(seats).containsExactly(a5, a6, a7);
+    }
+
+    private List<Seat> OfferAdjacentSeats(List<SeatWithDistance> seatsWithDistance, int partySize) {
+        // Implement your prototype here
         return new ArrayList<>();
     }
 }

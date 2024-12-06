@@ -3,7 +3,6 @@ package com.octo.technology.SeatsSuggestionsAcceptanceTests;
 import com.octo.technology.ExternalDependencies.auditoriumlayoutrepository.AuditoriumLayoutRepository;
 import com.octo.technology.ExternalDependencies.reservationsprovider.ReservationsProvider;
 import com.octo.technology.SeatsSuggestions.*;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -73,15 +72,14 @@ public class SeatsAllocatorTest {
 
         SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
-        assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A3", "A4", "A5");
-        assertThat(suggestionsMade.seatNames(PricingCategory.Second)).containsExactly("A1", "A2", "A9");
-        assertThat(suggestionsMade.seatNames(PricingCategory.Third)).containsExactly("E1", "E2", "E3");
+        assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A5", "A6", "A4");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Second)).containsExactly("A2", "A9", "A1");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Third)).containsExactly("E5", "E6", "E4");
 
-        assertThat(suggestionsMade.seatNames(PricingCategory.Mixed)).containsExactly("A1", "A2", "A3");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Mixed)).containsExactly("A5", "A6", "A4");
     }
 
     @Test
-    @Ignore("should be removed")
     public void should_offer_adjacent_seats_nearer_the_middle_of_a_row() throws IOException {
         // FIX ME
 

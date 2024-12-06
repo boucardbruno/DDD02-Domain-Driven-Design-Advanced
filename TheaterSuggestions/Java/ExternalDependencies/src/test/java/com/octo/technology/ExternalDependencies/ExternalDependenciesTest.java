@@ -17,7 +17,14 @@ public class ExternalDependenciesTest {
         ReservationsProvider seatsRepository = new ReservationsProvider();
         ReservedSeatsDto reservedSeatsDto = seatsRepository.getReservedSeats("1");
 
+        //AssertJ
         org.assertj.core.api.Assertions.assertThat(reservedSeatsDto.reservedSeats()).hasSize(19);
+
+        //Hamcrest
+        org.hamcrest.MatcherAssert.assertThat(reservedSeatsDto.reservedSeats(), IsCollectionWithSize.hasSize(19));
+
+        //Google Truth
+        com.google.common.truth.Truth.assertThat(reservedSeatsDto.reservedSeats()).hasSize(19);
     }
 
     @Test
@@ -27,10 +34,11 @@ public class ExternalDependenciesTest {
         AuditoriumDto theaterDto = eventRepository.GetAuditoriumLayoutFor("2");
 
         //Google Truth
-        org.assertj.core.api.Assertions.assertThat(theaterDto.rows()).hasSize(6);
-        org.assertj.core.api.Assertions.assertThat(theaterDto.corridors()).hasSize(2);
+        com.google.common.truth.Truth.assertThat(theaterDto.rows()).hasSize(6);
+        com.google.common.truth.Truth.assertThat(theaterDto.corridors()).hasSize(2);
         SeatDto firstSeatOfFirstRow = theaterDto.rows().get("A").get(0);
-        org.assertj.core.api.Assertions.assertThat(firstSeatOfFirstRow.category()).isEqualTo(2);
+        System.out.println(firstSeatOfFirstRow);
+        com.google.common.truth.Truth.assertThat(firstSeatOfFirstRow.category()).isEqualTo(2);
 
     }
 

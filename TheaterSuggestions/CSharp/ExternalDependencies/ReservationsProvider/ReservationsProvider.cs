@@ -47,12 +47,12 @@ namespace ExternalDependencies.ReservationsProvider
         {
             var directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            if (directoryName != null && directoryName.StartsWith(@"file:\"))
+            if (directoryName.StartsWith(@"file:\"))
             {
                 directoryName = directoryName.Substring(6);
             }
 
-            if (directoryName != null && directoryName.StartsWith(@"file:/"))
+            if (directoryName.StartsWith(@"file:/"))
             {
                 directoryName = directoryName.Substring(5);
             }

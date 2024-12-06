@@ -1,21 +1,18 @@
 package com.octo.technology.SeatsSuggestions;
 
-import lombok.Getter;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 public enum PricingCategory {
     First(1),
     Second(2),
     Third(3),
     Mixed(4);
 
-    private final int value;
-    private static final Map map = new HashMap();
+    private int value;
+    private static Map map = new HashMap();
 
-    PricingCategory(int value) {
+    private PricingCategory(int value) {
         this.value = value;
     }
 
@@ -29,4 +26,7 @@ public enum PricingCategory {
         return (PricingCategory) map.get(pageType);
     }
 
+    public int getValue() {
+        return value;
+    }
 }

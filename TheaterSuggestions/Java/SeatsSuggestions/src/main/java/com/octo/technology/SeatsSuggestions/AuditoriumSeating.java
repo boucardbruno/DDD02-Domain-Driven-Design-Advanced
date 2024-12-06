@@ -10,7 +10,7 @@ import java.util.Map;
 @EqualsAndHashCode
 public class AuditoriumSeating {
 
-    private final ImmutableMap<String, Row> rows;
+    private ImmutableMap<String, Row> rows;
 
     public AuditoriumSeating(Map<String, Row> rows) {
         this.rows = ImmutableMap.copyOf(rows);

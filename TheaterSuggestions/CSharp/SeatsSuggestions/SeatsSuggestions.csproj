@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +10,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExternalDependencies\ExternalDependencies.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DeepModel\" />
   </ItemGroup>
 
 </Project>

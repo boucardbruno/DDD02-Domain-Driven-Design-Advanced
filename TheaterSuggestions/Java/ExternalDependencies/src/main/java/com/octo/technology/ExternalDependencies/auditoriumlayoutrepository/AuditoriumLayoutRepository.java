@@ -11,16 +11,14 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.nio.file.Files.newDirectoryStream;
-
 public class AuditoriumLayoutRepository {
 
-    private final Map<String, AuditoriumDto> repository = new HashMap<>();
+    private Map<String, AuditoriumDto> repository = new HashMap<>();
 
     public AuditoriumLayoutRepository() throws IOException {
         String jsonDirectory = Paths.get(System.getProperty("user.dir")).getParent().getParent().getParent().toString() + "/Stubs/AuditoriumLayouts";
 
-        DirectoryStream<Path> directoryStream = newDirectoryStream(Paths.get(jsonDirectory));
+        DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(jsonDirectory));
 
         for (Path path : directoryStream) {
             if (path.toString().contains("_theater.json")) {

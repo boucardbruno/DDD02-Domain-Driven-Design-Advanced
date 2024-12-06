@@ -6,8 +6,9 @@ import static com.google.common.truth.Truth.assertThat;
 
 public class SeatTest {
 
+
     @Test
-    public void be_a_Value_Type() {
+    public void Be_a_Value_Type() {
         Seat firstInstance = new Seat("A", 1, PricingCategory.Second, SeatAvailability.Available);
         Seat secondInstance = new Seat("A", 1, PricingCategory.Second, SeatAvailability.Available);
 
