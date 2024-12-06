@@ -1,0 +1,35 @@
+﻿using ExternalDependencies.AuditoriumLayoutRepository;
+using ExternalDependencies.ReservationsProvider;
+using NFluent;
+using NUnit.Framework;
+
+namespace SeatsSuggestions.Tests.IntergrationTests
+{
+    /// <summary>
+    ///     Tests suite for the External dependencies/services.
+    /// </summary>
+    [TestFixture]
+    public class ExternalDependenciesShould
+    {
+        [Test]
+        public void Allow_us_to_retrieve_AuditoriumLayout_for_a_given_ShowId()
+        {
+            var auditoriumLayoutRepository = new AuditoriumLayoutRepository();
+            var auditoriumDto = auditoriumLayoutRepository.GetAuditoriumSeatingFor("2");
+
+            Check.That(auditoriumDto.Rows).HasSize(6);
+            Check.That(auditoriumDto.Corridors).HasSize(2);
+            var firstSeatOfFirstRow = auditoriumDto.Rows["A"][0];
+            Check.That(firstSeatOfFirstRow.Category).IsEqualTo(2);
+        }
+
+        [Test]
+        public void Allow_us_to_retrieve_reserved_seats_for_a_given_ShowId()
+        {
+            var seatsRepository = new ReservationsProvider();
+            var reservedSeatsDto = seatsRepository.GetReservedSeats("1");
+
+            Check.That(reservedSeatsDto.ReservedSeats).HasSize(19);
+        }
+    }
+}
