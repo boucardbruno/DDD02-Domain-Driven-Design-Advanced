@@ -70,9 +70,12 @@ namespace SeatsSuggestions.Tests.UnitTests
             var row = new Row("A", new List<Seat> { a1, a2, a3, a4, a5, a6, a7, a8, a9 });
 
             var seatsWithDistance = OfferSeatingPlacesNearerTheMiddleOfTheRow
-                .BuildSeatingPlaceCloserTheMiddleOfTheRow(row, new SuggestionRequest(5, PricingCategory.Mixed)).Take(partySize);
+                .BuildSeatingPlaceCloserTheMiddleOfTheRow(row, new SuggestionRequest(5, PricingCategory.Mixed))
+                .Take(partySize);
 
-            Check.That(seatsWithDistance.Select(s => s.Seat).OrderBy(s => s.Number).ToList())
+            Check.That(seatsWithDistance
+                    .Select(s => s.Seat)
+                    .OrderBy(s => s.Number).ToList())
                 .ContainsExactly(a2, a3, a5, a6, a7);
         }
 
