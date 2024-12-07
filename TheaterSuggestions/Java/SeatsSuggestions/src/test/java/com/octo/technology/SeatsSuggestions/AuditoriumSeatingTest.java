@@ -21,11 +21,14 @@ public class AuditoriumSeatingTest {
                 auditoriumLayoutAdapter.getAuditoriumSeating(showIdWithoutReservationYet);
 
         // Two different instances with same values should be equals
-        assertThat(auditoriumSeatingSecondInstance).isEqualTo(auditoriumSeatingFirstInstance);
+        assertThat(auditoriumSeatingSecondInstance)
+                .isEqualTo(auditoriumSeatingFirstInstance);
 
         // Should not mutate existing instance
-        auditoriumSeatingSecondInstance.rows().values().iterator().next().seats().iterator().next().allocate();
-        assertThat(auditoriumSeatingSecondInstance).isEqualTo(auditoriumSeatingFirstInstance);
+        auditoriumSeatingSecondInstance.rows()
+                .values().iterator().next().seats().iterator().next().allocate();
+        assertThat(auditoriumSeatingSecondInstance)
+                .isEqualTo(auditoriumSeatingFirstInstance);
     }
 
 }

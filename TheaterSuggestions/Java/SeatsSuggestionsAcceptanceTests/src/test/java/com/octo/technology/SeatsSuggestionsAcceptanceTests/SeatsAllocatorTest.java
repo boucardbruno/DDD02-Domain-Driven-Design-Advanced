@@ -51,7 +51,8 @@ public class SeatsAllocatorTest {
 
         SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestion(showId, partyRequested);
 
-        assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A3");
+        assertThat(suggestionsMade.seatNames(PricingCategory.First))
+                .containsExactly("A3");
     }
 
     @Test
@@ -86,5 +87,4 @@ public class SeatsAllocatorTest {
         assertThat(suggestionsMade.seatNames(PricingCategory.Mixed))
                 .containsExactly("A1", "A2", "A3");
     }
-
 }

@@ -18,5 +18,4 @@ public class RowTest {
         Row rowSecondInstance = new Row("A", Arrays.asList(a1, a2));
         assertThat(rowSecondInstance).isEqualTo(rowFirstInstance);
     }
-
 }
