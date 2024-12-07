@@ -1,9 +1,8 @@
-﻿namespace SeatsSuggestions
+﻿namespace SeatsSuggestions;
+
+public enum SeatAvailability
 {
-    public enum SeatAvailability
-    {
-        Reserved,
-        Available,
-        Allocated
-    }
+    Reserved,
+    Available,
+    Allocated
 }

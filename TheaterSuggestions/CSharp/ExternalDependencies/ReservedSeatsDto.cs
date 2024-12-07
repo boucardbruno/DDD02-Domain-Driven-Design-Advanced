@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace ExternalDependencies
+namespace ExternalDependencies;
+
+public class ReservedSeatsDto
 {
-    public class ReservedSeatsDto
-    {
-        public List<string> ReservedSeats { get; set; }
-    }
+    public List<string> ReservedSeats { get; set; }
 }

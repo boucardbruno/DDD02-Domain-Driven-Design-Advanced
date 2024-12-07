@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace ExternalDependencies
+namespace ExternalDependencies;
+
+public interface IProvideAuditoriumLayouts
 {
-    public interface IProvideAuditoriumLayouts
-    {
-        Task<AuditoriumDto> GetAuditoriumSeatingFor(string showId);
-    }
+    Task<AuditoriumDto> GetAuditoriumSeatingFor(string showId);
 }

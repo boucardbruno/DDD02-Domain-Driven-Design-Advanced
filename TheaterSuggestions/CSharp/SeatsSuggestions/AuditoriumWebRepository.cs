@@ -6,40 +6,32 @@ using ExternalDependencies;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace SeatsSuggestions
+namespace SeatsSuggestions;
+
+/// <summary>
+///     Get via a web api and adapt auditorium and return <see cref="AuditoriumDto" />.
+/// </summary>
+public class AuditoriumWebRepository(string uriAuditoriumSeatingRepository) : IProvideAuditoriumLayouts
 {
-    /// <summary>
-    ///     Get via a web api and adapt auditorium and return <see cref="AuditoriumDto" />.
-    /// </summary>
-    public class AuditoriumWebRepository : IProvideAuditoriumLayouts
+    public async Task<AuditoriumDto> GetAuditoriumSeatingFor(string showId)
     {
-        private readonly string _uriAuditoriumSeatingRepository;
-
-        public AuditoriumWebRepository(string uriAuditoriumSeatingRepository)
+        using (var client = new HttpClient())
         {
-            _uriAuditoriumSeatingRepository = uriAuditoriumSeatingRepository;
-        }
+            client.BaseAddress = new Uri(uriAuditoriumSeatingRepository);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        public async Task<AuditoriumDto> GetAuditoriumSeatingFor(string showId)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(_uriAuditoriumSeatingRepository);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = await client.GetAsync($"api/data_for_auditoriumSeating/{showId}");
 
-                var response = await client.GetAsync($"api/data_for_auditoriumSeating/{showId}");
+            response.EnsureSuccessStatusCode();
 
-                response.EnsureSuccessStatusCode();
+            var jsonAuditoriumSeating = await response.Content.ReadAsStringAsync();
 
-                var jsonAuditoriumSeating = await response.Content.ReadAsStringAsync();
+            var auditoriumSeatingDto = JsonConvert
+                .DeserializeObject<AuditoriumDto>(jsonAuditoriumSeating,
+                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
 
-                var auditoriumSeatingDto = JsonConvert
-                    .DeserializeObject<AuditoriumDto>(jsonAuditoriumSeating,
-                        new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
-
-                return auditoriumSeatingDto;
-            }
+            return auditoriumSeatingDto;
         }
     }
 }

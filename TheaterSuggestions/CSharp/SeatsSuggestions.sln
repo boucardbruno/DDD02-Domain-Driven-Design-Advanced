@@ -10,7 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9284BC18-E4C7-4182-BE48-0D824473E38A}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\AuditoriumLayoutExamples.md = ..\..\AuditoriumLayoutExamples.md
-		..\..\Domain-AuditoriumSeatingLayouts.md = ..\..\Domain-AuditoriumSeatingLayouts.md
 		..\..\README.md = ..\..\README.md
 	EndProjectSection
 EndProject

@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace SeatsSuggestions
+namespace SeatsSuggestions;
+
+public interface IProvideAuditoriumSeating
 {
-    public interface IProvideAuditoriumSeating
-    {
-        Task<AuditoriumSeating> GetAuditoriumSeating(string showId);
-    }
+    Task<AuditoriumSeating> GetAuditoriumSeating(string showId);
 }

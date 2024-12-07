@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 
-namespace SeatsSuggestions
+namespace SeatsSuggestions;
+
+public class SeatingOptionSuggested
 {
-    public class SeatingOptionSuggested
+    public SeatingOptionSuggested(SuggestionRequest suggestionRequest)
     {
-        public PricingCategory PricingCategory { get; }
-        public List<Seat> Seats { get; } = new List<Seat>();
-        public int PartyRequested { get; }
+        PartyRequested = suggestionRequest.PartyRequested;
+        PricingCategory = suggestionRequest.PricingCategory;
+    }
 
-        public SeatingOptionSuggested(SuggestionRequest suggestionRequest)
-        {
-            PartyRequested = suggestionRequest.PartyRequested;
-            PricingCategory = suggestionRequest.PricingCategory;
-        }
+    public PricingCategory PricingCategory { get; }
+    public List<Seat> Seats { get; } = new();
+    public int PartyRequested { get; }
 
-        public void AddSeat(Seat seat)
-        {
-            Seats.Add(seat);
-        }
+    public void AddSeat(Seat seat)
+    {
+        Seats.Add(seat);
+    }
 
-        public bool MatchExpectation()
-        {
-            return Seats.Count == PartyRequested;
-        }
+    public bool MatchExpectation()
+    {
+        return Seats.Count == PartyRequested;
     }
 }

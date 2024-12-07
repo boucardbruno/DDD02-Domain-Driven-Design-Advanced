@@ -1,11 +1,12 @@
-﻿﻿using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace SeatsSuggestions.DeepModel;
 
 public static class OfferSeatingPlacesNearerTheMiddleOfTheRow
 {
-    public static List<SeatWithDistance> BuildSeatingPlaceCloserTheMiddleOfTheRow(Row row, SuggestionRequest suggestionRequest)
+    public static List<SeatWithDistance> BuildSeatingPlaceCloserTheMiddleOfTheRow(Row row,
+        SuggestionRequest suggestionRequest)
     {
         return MakeSeatingPlacesWithDistance(row)
             .OrderBy(swd => swd.DistanceFromTheMiddleOfTheRow)
@@ -17,9 +18,9 @@ public static class OfferSeatingPlacesNearerTheMiddleOfTheRow
     public static IEnumerable<SeatWithDistance> MakeSeatingPlacesWithDistance(Row row)
     {
         var middleOfTheRow = row.Seats.Count / 2;
-        var seatingPlacesWithDistanceLeftSide = 
+        var seatingPlacesWithDistanceLeftSide =
             SeatingPlacesWithDistanceForLeftSide(row, middleOfTheRow);
-        var seatingPlacesWithDistanceRightSide = 
+        var seatingPlacesWithDistanceRightSide =
             SeatingPlacesWithDistanceForRightSide(row, middleOfTheRow);
         return seatingPlacesWithDistanceLeftSide.Concat(seatingPlacesWithDistanceRightSide);
     }
@@ -30,13 +31,13 @@ public static class OfferSeatingPlacesNearerTheMiddleOfTheRow
             .Skip(middleOfTheRow)
             .Select(s => new SeatWithDistance(
                 s,
-                (int)(s.Number -  ComputeTheMiddleOfTheRowForRightSide(middleOfTheRow)) 
+                (int)(s.Number - ComputeTheMiddleOfTheRowForRightSide(middleOfTheRow))
             ));
     }
 
     private static int ComputeTheMiddleOfTheRowForRightSide(int middleOfTheRow)
     {
-        return (middleOfTheRow + 1);
+        return middleOfTheRow + 1;
     }
 
     private static IEnumerable<SeatWithDistance> SeatingPlacesWithDistanceForLeftSide(Row row, int middleOfTheRow)
@@ -45,7 +46,7 @@ public static class OfferSeatingPlacesNearerTheMiddleOfTheRow
             .Take(middleOfTheRow)
             .Select(s => new SeatWithDistance(
                 s,
-                middleOfTheRow - ComputeTheMiddleOfTheRowForLeftSide(row, s) 
+                middleOfTheRow - ComputeTheMiddleOfTheRowForLeftSide(row, s)
             ));
     }
 

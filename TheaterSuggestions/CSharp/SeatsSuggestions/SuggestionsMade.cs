@@ -2,57 +2,50 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SeatsSuggestions
+namespace SeatsSuggestions;
+
+/// <summary>
+///     Occurs when a bunch of Suggestion are made.
+/// </summary>
+public class SuggestionsMade
 {
-    /// <summary>
-    ///     Occurs when a bunch of Suggestion are made.
-    /// </summary>
-    public class SuggestionsMade
+    public SuggestionsMade(string showId, int partyRequested)
     {
-        public string ShowId { get; }
-        public int PartyRequested { get; }
+        ShowId = showId;
+        PartyRequested = partyRequested;
 
-        private Dictionary<PricingCategory, List<SuggestionMade>> ForCategory { get; } =
-            new Dictionary<PricingCategory, List<SuggestionMade>>();
+        InstantiateAnEmptyListForEveryPricingCategory();
+    }
 
-        public SuggestionsMade(string showId, int partyRequested)
-        {
-            ShowId = showId;
-            PartyRequested = partyRequested;
+    public string ShowId { get; }
+    public int PartyRequested { get; }
 
-            InstantiateAnEmptyListForEveryPricingCategory();
-        }
+    private Dictionary<PricingCategory, List<SuggestionMade>> ForCategory { get; } = new();
 
-        public IEnumerable<string> SeatsInFirstPricingCategory => SeatNames(PricingCategory.First);
-        public IEnumerable<string> SeatsInSecondPricingCategory => SeatNames(PricingCategory.Second);
-        public IEnumerable<string> SeatsInThirdPricingCategory => SeatNames(PricingCategory.Third);
-        public IEnumerable<string> SeatsInMixedPricingCategory => SeatNames(PricingCategory.Mixed);
+    public IEnumerable<string> SeatsInFirstPricingCategory => SeatNames(PricingCategory.First);
+    public IEnumerable<string> SeatsInSecondPricingCategory => SeatNames(PricingCategory.Second);
+    public IEnumerable<string> SeatsInThirdPricingCategory => SeatNames(PricingCategory.Third);
+    public IEnumerable<string> SeatsInMixedPricingCategory => SeatNames(PricingCategory.Mixed);
 
-        public IEnumerable<string> SeatNames(PricingCategory pricingCategory)
-        {
-            var suggestionsMade = ForCategory[pricingCategory];
-            return suggestionsMade.Select(s => string.Join((string) "-", (IEnumerable<string>) s.SeatNames()));
-        }
+    public IEnumerable<string> SeatNames(PricingCategory pricingCategory)
+    {
+        var suggestionsMade = ForCategory[pricingCategory];
+        return suggestionsMade.Select(s => string.Join("-", s.SeatNames()));
+    }
 
-        private void InstantiateAnEmptyListForEveryPricingCategory()
-        {
-            foreach (PricingCategory pricingCategory in Enum.GetValues(typeof(PricingCategory)))
-            {
-                ForCategory[pricingCategory] = new List<SuggestionMade>();
-            }
-        }
+    private void InstantiateAnEmptyListForEveryPricingCategory()
+    {
+        foreach (PricingCategory pricingCategory in Enum.GetValues(typeof(PricingCategory)))
+            ForCategory[pricingCategory] = new List<SuggestionMade>();
+    }
 
-        public void Add(IEnumerable<SuggestionMade> suggestions)
-        {
-            foreach (var suggestionMade in suggestions)
-            {
-                ForCategory[suggestionMade.PricingCategory].Add(suggestionMade);
-            }
-        }
+    public void Add(IEnumerable<SuggestionMade> suggestions)
+    {
+        foreach (var suggestionMade in suggestions) ForCategory[suggestionMade.PricingCategory].Add(suggestionMade);
+    }
 
-        public bool MatchExpectations()
-        {
-            return ForCategory.SelectMany(s => s.Value).Any(x => x.MatchExpectation());
-        }
+    public bool MatchExpectations()
+    {
+        return ForCategory.SelectMany(s => s.Value).Any(x => x.MatchExpectation());
     }
 }

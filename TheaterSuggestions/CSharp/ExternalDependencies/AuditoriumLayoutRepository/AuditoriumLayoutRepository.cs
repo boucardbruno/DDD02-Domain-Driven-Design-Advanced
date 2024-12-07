@@ -5,60 +5,46 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace ExternalDependencies.AuditoriumLayoutRepository
+namespace ExternalDependencies.AuditoriumLayoutRepository;
+
+public class AuditoriumLayoutRepository : IProvideAuditoriumLayouts
 {
-    public class AuditoriumLayoutRepository : IProvideAuditoriumLayouts
+    private readonly Dictionary<string, AuditoriumDto> _repository = new();
+
+    public AuditoriumLayoutRepository()
     {
-        private readonly Dictionary<string, AuditoriumDto> _repository = new Dictionary<string, AuditoriumDto>();
+        var directoryName = $"{GetExecutingAssemblyDirectoryFullPath()}\\AuditoriumLayouts\\";
 
-        public AuditoriumLayoutRepository()
-        {
-            var directoryName = $"{GetExecutingAssemblyDirectoryFullPath()}\\AuditoriumLayouts\\";
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            directoryName = $"{GetExecutingAssemblyDirectoryFullPath()}/AuditoriumLayouts/";
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        Console.WriteLine(directoryName);
+
+        foreach (var fileFullName in Directory.EnumerateFiles($"{directoryName}"))
+            if (fileFullName.Contains("_theater.json"))
             {
-                directoryName = $"{GetExecutingAssemblyDirectoryFullPath()}/AuditoriumLayouts/";
+                var fileName = Path.GetFileName(fileFullName);
+
+                var eventId = Path.GetFileName(fileName.Split("-")[0]);
+                _repository[eventId] = JsonFile.ReadFromJsonFile<AuditoriumDto>(fileFullName);
             }
+    }
 
-            Console.WriteLine(directoryName);
+    public Task<AuditoriumDto> GetAuditoriumSeatingFor(string showId)
+    {
+        if (_repository.ContainsKey(showId)) return Task.FromResult(_repository[showId]);
 
-            foreach (var fileFullName in Directory.EnumerateFiles($"{directoryName}"))
-            {
-                if (fileFullName.Contains("_theater.json"))
-                {
-                    var fileName = Path.GetFileName(fileFullName);
+        return Task.FromResult(new AuditoriumDto());
+    }
 
-                    var eventId = Path.GetFileName(fileName.Split("-")[0]);
-                    _repository[eventId] = JsonFile.ReadFromJsonFile<AuditoriumDto>(fileFullName);
-                }
-            }
-        }
+    private static string GetExecutingAssemblyDirectoryFullPath()
+    {
+        var directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-        public Task<AuditoriumDto> GetAuditoriumSeatingFor(string showId)
-        {
-            if (_repository.ContainsKey(showId))
-            {
-                return Task.FromResult(_repository[showId]);
-            }
+        if (directoryName.StartsWith(@"file:\")) directoryName = directoryName.Substring(6);
 
-            return Task.FromResult(new AuditoriumDto());
-        }
+        if (directoryName.StartsWith(@"file:/")) directoryName = directoryName.Substring(5);
 
-        private static string GetExecutingAssemblyDirectoryFullPath()
-        {
-            var directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-            if (directoryName.StartsWith(@"file:\"))
-            {
-                directoryName = directoryName.Substring(6);
-            }
-
-            if (directoryName.StartsWith(@"file:/"))
-            {
-                directoryName = directoryName.Substring(5);
-            }
-
-            return directoryName;
-        }
+        return directoryName;
     }
 }

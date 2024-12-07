@@ -1,10 +1,9 @@
-﻿namespace SeatsSuggestions
+﻿namespace SeatsSuggestions;
+
+public enum PricingCategory
 {
-    public enum PricingCategory
-    {
-        First = 1,
-        Second,
-        Third,
-        Mixed
-    }
+    First = 1,
+    Second,
+    Third,
+    Mixed
 }

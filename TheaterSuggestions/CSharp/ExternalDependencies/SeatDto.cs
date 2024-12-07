@@ -1,14 +1,7 @@
-﻿namespace ExternalDependencies
-{
-    public class SeatDto
-    {
-        public SeatDto(string name, int category)
-        {
-            Name = name;
-            Category = category;
-        }
+﻿namespace ExternalDependencies;
 
-        public string Name { get; }
-        public int Category { get; }
-    }
+public class SeatDto(string name, int category)
+{
+    public string Name { get; } = name;
+    public int Category { get; } = category;
 }

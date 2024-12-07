@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ExternalDependencies\ExternalDependencies.csproj" />
-    <ProjectReference Include="..\SeatsSuggestions.Domain\SeatsSuggestions.Domain.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\ExternalDependencies\ExternalDependencies.csproj"/>
+        <ProjectReference Include="..\SeatsSuggestions.Domain\SeatsSuggestions.Domain.csproj"/>
+    </ItemGroup>
 
 </Project>

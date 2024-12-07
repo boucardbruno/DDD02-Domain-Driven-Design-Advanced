@@ -24,7 +24,8 @@ public static class OfferSeatingPlacesAdjacentFromTheMiddleOfTheRow
             else
             {
                 if (potentialSeatsWithDistances.IsMatchingThe(suggestionRequest.PartyRequested))
-                    CollectAdjacentSeatByDistance(suggestionRequest.PartyRequested, potentialSeatsWithDistances, adjacentSeatsList);
+                    CollectAdjacentSeatByDistance(suggestionRequest.PartyRequested, potentialSeatsWithDistances,
+                        adjacentSeatsList);
                 potentialSeatsWithDistances = [];
             }
 
@@ -32,7 +33,8 @@ public static class OfferSeatingPlacesAdjacentFromTheMiddleOfTheRow
         }
 
         if (potentialSeatsWithDistances.Any())
-            CollectAdjacentSeatByDistance(suggestionRequest.PartyRequested, potentialSeatsWithDistances, adjacentSeatsList);
+            CollectAdjacentSeatByDistance(suggestionRequest.PartyRequested, potentialSeatsWithDistances,
+                adjacentSeatsList);
 
         if (adjacentSeatsList.Any()) return ComputeTheBest(adjacentSeatsList);
 
@@ -53,7 +55,8 @@ public static class OfferSeatingPlacesAdjacentFromTheMiddleOfTheRow
         List<AdjacentSeats> adjacentSeatsList)
     {
         var seatWithDistances = new List<SeatWithDistance>();
-        foreach (var seatingPlaceWithDistance in potentialSeatsWithDistances.OrderBy(s => s.DistanceFromTheMiddleOfTheRow))
+        foreach (var seatingPlaceWithDistance in potentialSeatsWithDistances.OrderBy(s =>
+                     s.DistanceFromTheMiddleOfTheRow))
         {
             seatWithDistances.Add(seatingPlaceWithDistance);
             if (seatWithDistances.Count == partySize)

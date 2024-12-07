@@ -3,77 +3,70 @@ using System.Linq;
 using SeatsSuggestions.DeepModel;
 using Value;
 
-namespace SeatsSuggestions
+namespace SeatsSuggestions;
+
+public class Row(string name, IReadOnlyList<Seat> seats) : ValueType<Row>
 {
-    public class Row : ValueType<Row>
+    private string Name { get; } = name;
+    public IReadOnlyList<Seat> Seats { get; } = seats;
+
+    public Row AddSeat(Seat seat)
     {
-        public Row(string name, IReadOnlyList<Seat> seats)
+        return new Row(Name, new List<Seat>(Seats) { seat });
+    }
+
+    public SeatingOptionSuggested SuggestSeatingOption(SuggestionRequest suggestionRequest)
+    {
+        var seatingOptionSuggested = new SeatingOptionSuggested(suggestionRequest);
+
+        foreach (var seat in OfferAdjacentSeatsNearerTheMiddleOfTheRow(suggestionRequest))
         {
-            Name = name;
-            Seats = seats;
+            seatingOptionSuggested.AddSeat(seat);
+
+            if (seatingOptionSuggested.MatchExpectation()) return seatingOptionSuggested;
         }
 
-        private string Name { get; }
-        public IReadOnlyList<Seat> Seats { get; }
-        
-        public Row AddSeat(Seat seat)
-        {
-            return new Row(Name, new List<Seat>(Seats) { seat });
-        }
+        return new SeatingOptionNotAvailable(suggestionRequest);
+    }
 
-        public SeatingOptionSuggested SuggestSeatingOption(SuggestionRequest suggestionRequest)
-        {
-            var seatingOptionSuggested = new SeatingOptionSuggested(suggestionRequest);
+    public IEnumerable<Seat> OfferAdjacentSeatsNearerTheMiddleOfTheRow(SuggestionRequest suggestionRequest)
+    {
+        // 1. offer seats from the middle of the row
+        var seatsWithDistanceFromMiddleOfTheRow =
+            OfferSeatingPlacesNearerTheMiddleOfTheRow.BuildSeatingPlaceCloserTheMiddleOfTheRow(this, suggestionRequest);
 
-            foreach (var seat in OfferAdjacentSeatsNearerTheMiddleOfTheRow(suggestionRequest))
-            {
-                seatingOptionSuggested.AddSeat(seat);
+        if (DoNotLookForAdjacentSeatsWhenThePartyContainsOnlyOnePerson(suggestionRequest))
+            return seatsWithDistanceFromMiddleOfTheRow.Select(seatWithTheDistanceFromTheMiddleOfTheRow =>
+                seatWithTheDistanceFromTheMiddleOfTheRow.Seat);
 
-                if (seatingOptionSuggested.MatchExpectation()) return seatingOptionSuggested;
-            }
+        // 2. based on seats with distance from the middle of row,
+        //    we offer the best group (close to the middle) of adjacent seats
+        return OfferSeatingPlacesAdjacentFromTheMiddleOfTheRow
+            .BuildAdjacentSeats(seatsWithDistanceFromMiddleOfTheRow, suggestionRequest);
+    }
 
-            return new SeatingOptionNotAvailable(suggestionRequest);
-        }
+    private static bool DoNotLookForAdjacentSeatsWhenThePartyContainsOnlyOnePerson(
+        SuggestionRequest suggestionRequest)
+    {
+        return suggestionRequest.PartyRequested == 1;
+    }
 
-        public IEnumerable<Seat> OfferAdjacentSeatsNearerTheMiddleOfTheRow(SuggestionRequest suggestionRequest)
-        {
-            // 1. offer seats from the middle of the row
-            var seatsWithDistanceFromMiddleOfTheRow =
-                OfferSeatingPlacesNearerTheMiddleOfTheRow.BuildSeatingPlaceCloserTheMiddleOfTheRow(this, suggestionRequest);
+    public Row Allocate(Seat seat)
+    {
+        var newVersionOfSeats = new List<Seat>();
 
-            if (DoNotLookForAdjacentSeatsWhenThePartyContainsOnlyOnePerson(suggestionRequest))
-                return seatsWithDistanceFromMiddleOfTheRow.Select(seatWithTheDistanceFromTheMiddleOfTheRow =>
-                    seatWithTheDistanceFromTheMiddleOfTheRow.Seat);
+        foreach (var currentSeat in Seats)
+            if (currentSeat.SameSeatLocation(seat))
+                newVersionOfSeats.Add(new Seat(seat.RowName, seat.Number, seat.PricingCategory,
+                    SeatAvailability.Allocated));
+            else
+                newVersionOfSeats.Add(currentSeat);
 
-            // 2. based on seats with distance from the middle of row,
-            //    we offer the best group (close to the middle) of adjacent seats
-            return OfferSeatingPlacesAdjacentFromTheMiddleOfTheRow
-                .BuildAdjacentSeats(seatsWithDistanceFromMiddleOfTheRow, suggestionRequest);
-        }
+        return new Row(seat.RowName, newVersionOfSeats);
+    }
 
-        private static bool DoNotLookForAdjacentSeatsWhenThePartyContainsOnlyOnePerson(
-            SuggestionRequest suggestionRequest)
-        {
-            return suggestionRequest.PartyRequested == 1;
-        }
-
-        public Row Allocate(Seat seat)
-        {
-            var newVersionOfSeats = new List<Seat>();
-
-            foreach (var currentSeat in Seats)
-                if (currentSeat.SameSeatLocation(seat))
-                    newVersionOfSeats.Add(new Seat(seat.RowName, seat.Number, seat.PricingCategory,
-                        SeatAvailability.Allocated));
-                else
-                    newVersionOfSeats.Add(currentSeat);
-
-            return new Row(seat.RowName, newVersionOfSeats);
-        }
-
-        protected override IEnumerable<object> GetAllAttributesToBeUsedForEquality()
-        {
-            return [Name, new ListByValue<Seat>(new List<Seat>(Seats))];
-        }
+    protected override IEnumerable<object> GetAllAttributesToBeUsedForEquality()
+    {
+        return [Name, new ListByValue<Seat>(new List<Seat>(Seats))];
     }
 }

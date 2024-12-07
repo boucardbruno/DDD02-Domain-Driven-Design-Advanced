@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace ExternalDependencies
+namespace ExternalDependencies;
+
+public class CorridorDto
 {
-    public class CorridorDto
-    {
-        public int Number { get; set; }
-        public IEnumerable<string> InvolvedRowNames { get; set; }
-    }
+    public int Number { get; set; }
+    public IEnumerable<string> InvolvedRowNames { get; set; }
 }

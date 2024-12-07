@@ -1,28 +1,23 @@
 ﻿using System.Collections.Generic;
 
-namespace SeatsSuggestions.DeepModel
+namespace SeatsSuggestions.DeepModel;
+
+public class AdjacentSeats
 {
-    public class AdjacentSeats
+    public AdjacentSeats(IEnumerable<SeatWithDistance> seatsWithTheDistance)
     {
-        public AdjacentSeats()
-        {
-        }
+        SeatsWithDistance.AddRange(seatsWithTheDistance);
+    }
 
-        public AdjacentSeats(IEnumerable<SeatWithDistance> seatsWithTheDistance)
-        {
-            SeatsWithDistance.AddRange(seatsWithTheDistance);
-        }
+    public List<SeatWithDistance> SeatsWithDistance { get; } = new();
 
-        public List<SeatWithDistance> SeatsWithDistance { get; } = new();
+    public void AddSeat(SeatWithDistance seatWithDistance)
+    {
+        SeatsWithDistance.Add(seatWithDistance);
+    }
 
-        public void AddSeat(SeatWithDistance seatWithDistance)
-        {
-            SeatsWithDistance.Add(seatWithDistance);
-        }
-
-        public override string ToString()
-        {
-            return string.Join("-", SeatsWithDistance);
-        }
+    public override string ToString()
+    {
+        return string.Join("-", SeatsWithDistance);
     }
 }

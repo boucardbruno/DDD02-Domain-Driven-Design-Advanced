@@ -2,24 +2,23 @@
 using ExternalDependencies;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuditoriumLayout.Api.Controllers
+namespace AuditoriumLayout.Api.Controllers;
+
+[Route("api/data_for_auditoriumSeating/")]
+[ApiController]
+public class AuditoriumSeatingController : ControllerBase
 {
-    [Route("api/data_for_auditoriumSeating/")]
-    [ApiController]
-    public class AuditoriumSeatingController : ControllerBase
+    private readonly IProvideAuditoriumLayouts _provideAuditoriumLayouts;
+
+    public AuditoriumSeatingController(IProvideAuditoriumLayouts provideAuditoriumLayouts)
     {
-        private readonly IProvideAuditoriumLayouts _provideAuditoriumLayouts;
+        _provideAuditoriumLayouts = provideAuditoriumLayouts;
+    }
 
-        public AuditoriumSeatingController(IProvideAuditoriumLayouts provideAuditoriumLayouts)
-        {
-            _provideAuditoriumLayouts = provideAuditoriumLayouts;
-        }
-
-        // GET api/data_for_auditoriumSeating/5
-        [HttpGet("{showId}")]
-        public async Task<ActionResult<AuditoriumDto>> Get(string showId)
-        {
-            return await _provideAuditoriumLayouts.GetAuditoriumSeatingFor(showId);
-        }
+    // GET api/data_for_auditoriumSeating/5
+    [HttpGet("{showId}")]
+    public async Task<ActionResult<AuditoriumDto>> Get(string showId)
+    {
+        return await _provideAuditoriumLayouts.GetAuditoriumSeatingFor(showId);
     }
 }

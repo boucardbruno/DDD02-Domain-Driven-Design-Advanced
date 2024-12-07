@@ -6,45 +6,44 @@ using ExternalDependencies;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace SeatsSuggestions
+namespace SeatsSuggestions;
+
+/// <summary>
+///     Get via a web api and adapt reservations and return <see cref="ReservedSeatsDto" />.
+/// </summary>
+public class SeatReservationsWebAdapter : IProvideCurrentReservations
 {
-    /// <summary>
-    ///     Get via a web api and adapt reservations and return <see cref="ReservedSeatsDto" />.
-    /// </summary>
-    public class SeatReservationsWebAdapter : IProvideCurrentReservations
+    private readonly string _uriSeatReservationService;
+
+    public SeatReservationsWebAdapter(string uriSeatReservationService)
     {
-        private readonly string _uriSeatReservationService;
+        _uriSeatReservationService = uriSeatReservationService;
+    }
 
-        public SeatReservationsWebAdapter(string uriSeatReservationService)
+    public async Task<ReservedSeatsDto> GetReservedSeats(string showId)
+    {
+        var jsonSeatReservations = await GetDataForReservations(showId);
+
+        var reservationsSeatsDto = JsonConvert
+            .DeserializeObject<ReservedSeatsDto>(jsonSeatReservations,
+                new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+
+        return reservationsSeatsDto;
+    }
+
+    private async Task<string> GetDataForReservations(string showId)
+    {
+        using (var client = new HttpClient())
         {
-            _uriSeatReservationService = uriSeatReservationService;
-        }
+            client.BaseAddress = new Uri(_uriSeatReservationService);
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-        public async Task<ReservedSeatsDto> GetReservedSeats(string showId)
-        {
-            var jsonSeatReservations = await GetDataForReservations(showId);
+            var response = await client.GetAsync($"api/data_for_reservation_seats/{showId}");
 
-            var reservationsSeatsDto = JsonConvert
-                .DeserializeObject<ReservedSeatsDto>(jsonSeatReservations,
-                    new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
+            response.EnsureSuccessStatusCode();
 
-            return reservationsSeatsDto;
-        }
-
-        private async Task<string> GetDataForReservations(string showId)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(_uriSeatReservationService);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var response = await client.GetAsync($"api/data_for_reservation_seats/{showId}");
-
-                response.EnsureSuccessStatusCode();
-
-                return await response.Content.ReadAsStringAsync();
-            }
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }
