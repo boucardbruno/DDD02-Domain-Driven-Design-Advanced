@@ -65,7 +65,6 @@ public class Row {
         return seatWithTheDistanceFromTheMiddleOfTheRows.stream().map(SeatWithDistance::seat).collect(Collectors.toList());
     }
 
-
     public Row
     allocate(Seat seat) {
         List<Seat> newVersionOfSeats = new ArrayList<>();
@@ -80,17 +79,5 @@ public class Row {
         });
 
         return new Row(seat.rowName(), newVersionOfSeats);
-    }
-
-    public boolean
-    rowSizeIsEven() {
-
-        return seats().size() % 2 == 0;
-    }
-
-    public int
-    theMiddleOfRow() {
-
-        return rowSizeIsEven() ? seats().size() / 2 : Math.abs(seats().size() / 2) + 1;
     }
 }

@@ -38,7 +38,7 @@ public  class OfferSeatingPlacesNearerTheMiddleOfTheRow
                 .skip(middleOfTheRow)
                 .map(s -> new SeatWithDistance(
                         s,
-                        (int)(s.number() -  computeTheMiddleOfTheRowForRightSide(middleOfTheRow))
+                        s.number() -  computeTheMiddleOfTheRowForRightSide(middleOfTheRow)
                 ))
                 .collect(Collectors.toList());
     }

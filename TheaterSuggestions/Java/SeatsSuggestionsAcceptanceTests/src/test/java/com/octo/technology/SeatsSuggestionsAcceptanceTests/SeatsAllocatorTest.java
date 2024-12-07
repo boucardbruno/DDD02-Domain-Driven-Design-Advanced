@@ -72,11 +72,14 @@ public class SeatsAllocatorTest {
 
         SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
-        assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A5", "A6", "A4");
-        assertThat(suggestionsMade.seatNames(PricingCategory.Second)).containsExactly("A2", "A9", "A1");
-        assertThat(suggestionsMade.seatNames(PricingCategory.Third)).containsExactly("E5", "E6", "E4");
-
-        assertThat(suggestionsMade.seatNames(PricingCategory.Mixed)).containsExactly("A5", "A6", "A4");
+        assertThat(suggestionsMade.seatNames(PricingCategory.First))
+                .containsExactly("A5", "A6", "A4");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Second))
+                .containsExactly("A2", "A9", "A1");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Third))
+                .containsExactly("E5", "E6", "E4");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Mixed))
+                .containsExactly("A5", "A6", "A4");
     }
 
     @Test
@@ -98,6 +101,7 @@ public class SeatsAllocatorTest {
 
         SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
-        assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A4", "A3", "B5");
+        assertThat(suggestionsMade.seatNames(PricingCategory.First))
+                .containsExactly("A4", "A3", "B5");
     }
 }
