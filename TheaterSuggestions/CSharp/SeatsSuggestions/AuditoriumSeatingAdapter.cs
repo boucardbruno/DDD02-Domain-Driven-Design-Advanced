@@ -53,7 +53,7 @@ namespace SeatsSuggestions
 
         private static PricingCategory ConvertCategory(int seatDtoCategory)
         {
-            return (PricingCategory) seatDtoCategory;
+            return (PricingCategory)seatDtoCategory;
         }
 
         private static uint ExtractNumber(string name)

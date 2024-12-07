@@ -2,17 +2,11 @@
 
 namespace SeatsSuggestions
 {
-    public class SeatingOptionSuggested
+    public class SeatingOptionSuggested(int partyRequested, PricingCategory priceCategory)
     {
-        public PricingCategory PricingCategory { get; }
-        public List<Seat> Seats { get; } = new List<Seat>();
-        public int PartyRequested { get; }
-
-        public SeatingOptionSuggested(int partyRequested, PricingCategory priceCategory)
-        {
-            PartyRequested = partyRequested;
-            PricingCategory = priceCategory;
-        }
+        public PricingCategory PricingCategory { get; } = priceCategory;
+        public List<Seat> Seats { get; } = new();
+        public int PartyRequested { get; } = partyRequested;
 
         public void AddSeat(Seat seat)
         {

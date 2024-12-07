@@ -6,29 +6,21 @@ namespace SeatsSuggestions
     /// <summary>
     ///     Occurs when a Suggestion is made.
     /// </summary>
-    public class SuggestionMade
+    public class SuggestionMade(int partyRequested, PricingCategory pricingCategory, List<Seat> seats)
     {
-        private readonly List<Seat> _suggestedSeats;
-        public int PartyRequested { get; }
-        public PricingCategory PricingCategory { get; }
+        public int PartyRequested { get; } = partyRequested;
+        public PricingCategory PricingCategory { get; } = pricingCategory;
 
-        public IReadOnlyList<Seat> SuggestedSeats => _suggestedSeats;
-
-        public SuggestionMade(int partyRequested, PricingCategory pricingCategory, List<Seat> seats)
-        {
-            PartyRequested = partyRequested;
-            PricingCategory = pricingCategory;
-            _suggestedSeats = seats;
-        }
+        public IReadOnlyList<Seat> SuggestedSeats => seats;
 
         public IEnumerable<string> SeatNames()
         {
-            return _suggestedSeats.Select(s => s.ToString());
+            return seats.Select(s => s.ToString());
         }
 
         public bool MatchExpectation()
         {
-            return _suggestedSeats.Count == PartyRequested;
+            return seats.Count == PartyRequested;
         }
     }
 }

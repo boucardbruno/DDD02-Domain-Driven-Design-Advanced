@@ -2,16 +2,10 @@
 
 namespace SeatsSuggestions
 {
-    public class Row
+    public class Row(string name, List<Seat> seats)
     {
-        public string Name { get; }
-        public List<Seat> Seats { get; }
-
-        public Row(string name, List<Seat> seats)
-        {
-            Name = name;
-            Seats = seats;
-        }
+        public string Name { get; } = name;
+        public List<Seat> Seats { get; } = seats;
 
         public void AddSeat(Seat seat)
         {

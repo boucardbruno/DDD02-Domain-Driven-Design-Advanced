@@ -13,14 +13,14 @@ namespace ExternalDependencies.AuditoriumLayoutRepository
         public AuditoriumLayoutRepository()
         {
             var directoryName = $"{GetExecutingAssemblyDirectoryFullPath()}\\AuditoriumLayouts\\";
-            
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 directoryName = $"{GetExecutingAssemblyDirectoryFullPath()}/AuditoriumLayouts/";
             }
 
             Console.WriteLine(directoryName);
-            
+
             foreach (var fileFullName in Directory.EnumerateFiles($"{directoryName}"))
             {
                 if (fileFullName.Contains("_theater.json"))

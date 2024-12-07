@@ -25,6 +25,7 @@ namespace SeatsSuggestions.Tests.UnitTests
 
             // Should not mutate existing instance 
             auditoriumSeatingSecondInstance.Rows.Values.First().Seats.First().Allocate();
+
             Check.That(auditoriumSeatingSecondInstance).IsEqualTo(auditoriumSeatingFirstInstance);
         }
     }

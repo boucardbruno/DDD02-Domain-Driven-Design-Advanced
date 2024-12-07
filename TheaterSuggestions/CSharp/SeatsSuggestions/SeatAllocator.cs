@@ -2,19 +2,13 @@
 
 namespace SeatsSuggestions
 {
-    public class SeatAllocator
+    public class SeatAllocator(AuditoriumSeatingAdapter auditoriumSeatingAdapter)
     {
         private const int NumberOfSuggestions = 3;
-        private readonly AuditoriumSeatingAdapter _auditoriumSeatingAdapter;
-
-        public SeatAllocator(AuditoriumSeatingAdapter auditoriumSeatingAdapter)
-        {
-            _auditoriumSeatingAdapter = auditoriumSeatingAdapter;
-        }
 
         public SuggestionsMade MakeSuggestions(string showId, int partyRequested)
         {
-            var auditoriumSeating = _auditoriumSeatingAdapter.GetAuditoriumSeating(showId);
+            var auditoriumSeating = auditoriumSeatingAdapter.GetAuditoriumSeating(showId);
 
             var suggestionsMade = new SuggestionsMade(showId, partyRequested);
 

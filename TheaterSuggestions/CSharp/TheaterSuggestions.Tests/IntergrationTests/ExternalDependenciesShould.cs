@@ -20,6 +20,7 @@ namespace SeatsSuggestions.Tests.IntergrationTests
             Check.That(auditoriumDto.Rows).HasSize(6);
             Check.That(auditoriumDto.Corridors).HasSize(2);
             var firstSeatOfFirstRow = auditoriumDto.Rows["A"][0];
+
             Check.That(firstSeatOfFirstRow.Category).IsEqualTo(2);
         }
 

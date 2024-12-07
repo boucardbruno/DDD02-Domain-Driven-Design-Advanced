@@ -12,8 +12,7 @@ namespace SeatsSuggestions
         public string ShowId { get; }
         public int PartyRequested { get; }
 
-        private Dictionary<PricingCategory, List<SuggestionMade>> ForCategory { get; } =
-            new Dictionary<PricingCategory, List<SuggestionMade>>();
+        private Dictionary<PricingCategory, List<SuggestionMade>> ForCategory { get; } = new();
 
         public SuggestionsMade(string showId, int partyRequested)
         {
