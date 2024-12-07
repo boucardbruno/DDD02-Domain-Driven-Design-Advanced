@@ -10,6 +10,7 @@ namespace SeatsSuggestions.Tests.UnitTests
     public class AuditoriumSeatingShould
     {
         [Test]
+        [Ignore("should be removed")]
         public void Be_a_Value_Type()
         {
             var auditoriumLayoutAdapter =

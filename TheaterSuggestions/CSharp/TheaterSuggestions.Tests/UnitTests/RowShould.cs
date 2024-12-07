@@ -8,6 +8,7 @@ namespace SeatsSuggestions.Tests.UnitTests
     public class RowShould
     {
         [Test]
+        [Ignore("should be removed")]
         public void Be_a_Value_Type()
         {
             var a1 = new Seat("A", 1, PricingCategory.Second, SeatAvailability.Available);

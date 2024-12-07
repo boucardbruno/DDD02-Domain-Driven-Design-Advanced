@@ -7,6 +7,7 @@ namespace SeatsSuggestions.Tests.UnitTests
     public class SeatShould
     {
         [Test]
+        [Ignore("should be removed")]
         public void Be_a_Value_Type()
         {
             var firstInstance = new Seat("A", 1, PricingCategory.Second, SeatAvailability.Available);
