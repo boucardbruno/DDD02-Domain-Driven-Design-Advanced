@@ -4,6 +4,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("com.baasie.SeatsSuggestionsDomain")
+@ComponentScan("com.octo.technology.SeatsSuggestionsApi")
 public class config {
 }

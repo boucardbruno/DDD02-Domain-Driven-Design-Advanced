@@ -26,7 +26,6 @@ public class ExternalDependenciesTest {
         AuditoriumLayoutRepository eventRepository = new AuditoriumLayoutRepository();
         AuditoriumDto theaterDto = eventRepository.GetAuditoriumLayoutFor("2");
 
-        //Google Truth
         org.assertj.core.api.Assertions.assertThat(theaterDto.rows()).hasSize(6);
         org.assertj.core.api.Assertions.assertThat(theaterDto.corridors()).hasSize(2);
         SeatDto firstSeatOfFirstRow = theaterDto.rows().get("A").get(0);
