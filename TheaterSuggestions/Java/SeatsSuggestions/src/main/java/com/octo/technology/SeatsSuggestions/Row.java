@@ -3,8 +3,8 @@ package com.octo.technology.SeatsSuggestions;
 import java.util.List;
 
 public class Row {
-    private String name;
-    private List<Seat> seats;
+    private final String name;
+    private final List<Seat> seats;
 
     public Row(String name, List<Seat> seats) {
         this.name = name;
@@ -33,5 +33,4 @@ public class Row {
     public List<Seat> seats() {
         return seats;
     }
-
 }

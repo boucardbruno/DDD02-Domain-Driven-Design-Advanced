@@ -29,7 +29,5 @@ public class ExternalDependenciesTest {
         org.assertj.core.api.Assertions.assertThat(theaterDto.corridors()).hasSize(2);
         SeatDto firstSeatOfFirstRow = theaterDto.rows().get("A").get(0);
         org.assertj.core.api.Assertions.assertThat(firstSeatOfFirstRow.category()).isEqualTo(2);
-
     }
-
 }

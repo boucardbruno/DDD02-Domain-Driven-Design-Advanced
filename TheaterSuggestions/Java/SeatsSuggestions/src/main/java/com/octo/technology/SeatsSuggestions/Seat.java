@@ -2,9 +2,9 @@ package com.octo.technology.SeatsSuggestions;
 
 public class Seat {
 
-    private String rowName;
-    private int number;
-    private PricingCategory pricingCategory;
+    private final String rowName;
+    private final int number;
+    private final PricingCategory pricingCategory;
     private SeatAvailability seatAvailability;
 
     public Seat(String rowName, int number, PricingCategory pricingCategory, SeatAvailability seatAvailability) {
