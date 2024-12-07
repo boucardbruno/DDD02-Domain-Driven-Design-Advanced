@@ -47,7 +47,7 @@ namespace ExternalDependencies.ReservationsProvider
                 directoryName = directoryName.Substring(6);
             }
 
-            if (directoryName.StartsWith(@"file:/"))
+            if (directoryName!.StartsWith(@"file:/"))
             {
                 directoryName = directoryName.Substring(5);
             }

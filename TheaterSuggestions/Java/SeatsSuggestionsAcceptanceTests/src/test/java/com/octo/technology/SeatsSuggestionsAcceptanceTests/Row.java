@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Row {
     private String name;
-    private List<Seat> seats = new ArrayList<>();
+    private final List<Seat> seats = new ArrayList<>();
 
     public List<Seat> seats() {
         return seats;
