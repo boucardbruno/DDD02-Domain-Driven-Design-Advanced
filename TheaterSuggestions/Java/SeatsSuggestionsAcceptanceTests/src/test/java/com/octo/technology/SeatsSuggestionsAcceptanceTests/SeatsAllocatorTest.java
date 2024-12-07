@@ -3,7 +3,6 @@ package com.octo.technology.SeatsSuggestionsAcceptanceTests;
 import com.octo.technology.ExternalDependencies.auditoriumlayoutrepository.AuditoriumLayoutRepository;
 import com.octo.technology.ExternalDependencies.reservationsprovider.ReservationsProvider;
 import com.octo.technology.SeatsSuggestions.*;
-import lombok.var;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -74,11 +73,14 @@ public class SeatsAllocatorTest {
 
         SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
-        assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A5", "A6", "A4");
-        assertThat(suggestionsMade.seatNames(PricingCategory.Second)).containsExactly("A2", "A9", "A1");
-        assertThat(suggestionsMade.seatNames(PricingCategory.Third)).containsExactly("E5", "E6", "E4");
-
-        assertThat(suggestionsMade.seatNames(PricingCategory.Mixed)).containsExactly("A5", "A6", "A4");
+        assertThat(suggestionsMade.seatNames(PricingCategory.First))
+                .containsExactly("A5", "A6", "A4");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Second))
+                .containsExactly("A2", "A9", "A1");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Third))
+                .containsExactly("E5", "E6", "E4");
+        assertThat(suggestionsMade.seatNames(PricingCategory.Mixed))
+                .containsExactly("A5", "A6", "A4");
     }
 
     @Test
@@ -100,7 +102,8 @@ public class SeatsAllocatorTest {
 
         SuggestionsMade suggestionsMade = seatsAllocator.makeSuggestions(showId, partyRequested);
 
-        assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A4", "A3", "B5");
+        assertThat(suggestionsMade.seatNames(PricingCategory.First))
+                .containsExactly("A4", "A3", "B5");
     }
 
     @Test
@@ -160,7 +163,8 @@ public class SeatsAllocatorTest {
 
         SuggestionsMade suggestionsMade = seatAllocator.makeSuggestions(showId, partyRequested);
 
-        assertThat(suggestionsMade.seatNames(PricingCategory.First)).containsExactly("A6-A7-A8");
+        assertThat(suggestionsMade.seatNames(PricingCategory.First))
+                .containsExactly("A6-A7-A8");
         assertThat(suggestionsMade.seatNames(PricingCategory.Second))
                 .containsExactly("C4-C5-C6", "C1-C2-C3", "C7-C8-C9");
         assertThat(suggestionsMade.seatNames(PricingCategory.Third))
