@@ -6,7 +6,7 @@ using ExternalDependencies;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace SeatsSuggestions;
+namespace SeatsSuggestions.Infra.Adapter;
 
 /// <summary>
 ///     Get via a web api and adapt auditorium and return <see cref="AuditoriumDto" />.

@@ -2,7 +2,8 @@
 using System.Linq;
 using NFluent;
 using NUnit.Framework;
-using SeatsSuggestions.DeepModel;
+using SeatsSuggestions.Domain;
+using SeatsSuggestions.Domain.DeepModel;
 
 namespace SeatsSuggestions.Tests.UnitTests.DeepModel;
 

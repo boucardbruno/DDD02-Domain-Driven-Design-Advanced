@@ -10,9 +10,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SeatsSuggestions\SeatsSuggestions.csproj"/>
         <ProjectReference Include="..\SeatsSuggestions.Domain\SeatsSuggestions.Domain.csproj"/>
         <ProjectReference Include="..\SeatsSuggestions.Infra\SeatsSuggestions.Infra.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.6.22" />
+      <PackageReference Include="NSwag.Core" Version="14.2.0" />
+      <PackageReference Include="NSwag.SwaggerGeneration.WebApi" Version="12.3.0" />
+      <PackageReference Include="Swashbuckle" Version="5.6.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.2.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
+      <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
     </ItemGroup>
 
 </Project>

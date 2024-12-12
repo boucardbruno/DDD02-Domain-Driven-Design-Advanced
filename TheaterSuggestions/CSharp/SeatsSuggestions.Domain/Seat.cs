@@ -2,7 +2,7 @@
 using System.Linq;
 using Value;
 
-namespace SeatsSuggestions;
+namespace SeatsSuggestions.Domain;
 
 public class Seat(string rowName, uint number, PricingCategory pricingCategory, SeatAvailability seatAvailability)
     : ValueType<Seat>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SeatsSuggestions.DeepModel;
+namespace SeatsSuggestions.Domain.DeepModel;
 
 public static class OfferSeatingPlacesNearerTheMiddleOfTheRow
 {

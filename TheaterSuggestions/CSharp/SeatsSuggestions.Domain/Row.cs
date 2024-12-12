@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SeatsSuggestions.DeepModel;
+using SeatsSuggestions.Domain.DeepModel;
 using Value;
 
-namespace SeatsSuggestions;
+namespace SeatsSuggestions.Domain;
 
 public class Row(string name, IReadOnlyList<Seat> seats) : ValueType<Row>
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SeatsSuggestions.DeepModel;
+namespace SeatsSuggestions.Domain.DeepModel;
 
 internal static class AdjacentSeatsExtension
 {

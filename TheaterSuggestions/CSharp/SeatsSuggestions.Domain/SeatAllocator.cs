@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SeatsSuggestions;
+namespace SeatsSuggestions.Domain;
 
-public class SeatAllocator(IProvideAuditoriumSeating auditoriumSeatingAdapter)
+public class SeatAllocator(IProvideAuditoriumSeating auditoriumSeatingAdapter) : IProvideSeatSuggestionsForShows
 {
     private const int NumberOfSuggestionsPerPricingCategory = 3;
 
