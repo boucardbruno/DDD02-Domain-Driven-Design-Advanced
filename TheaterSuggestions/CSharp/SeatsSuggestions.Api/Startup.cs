@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NSwag;
 using SeatsSuggestions.Domain;
 using SeatsSuggestions.Infra.Adapter;
 using OpenApiInfo = Microsoft.OpenApi.Models.OpenApiInfo;
@@ -27,7 +26,7 @@ public class Startup
         var seatAllocator =
             new SeatAllocator(new AuditoriumSeatingAdapter(auditoriumSeatingRepository, seatReservationsProvider));
         services.AddSingleton<IProvideSeatSuggestionsForShows>(seatAllocator);
-        
+
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "SeatsSuggestions API", Version = "v1" });

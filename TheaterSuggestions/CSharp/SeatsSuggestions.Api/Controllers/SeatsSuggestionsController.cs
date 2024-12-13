@@ -1,10 +1,7 @@
 ﻿using System.Threading.Tasks;
-using ExternalDependencies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SeatsSuggestions.Domain;
-using SeatsSuggestions.Infra;
-using SeatsSuggestions.Infra.Adapter;
 
 namespace SeatsSuggestions.Api.Controllers;
 

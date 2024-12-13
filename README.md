@@ -2,11 +2,15 @@
 
 ### Description
 
-Dans de nombreux projets, les choix techniques précèdent souvent une compréhension approfondie des besoins métier, bien que le logiciel soit avant tout conçu pour résoudre des problèmes métier. La transition entre les découvertes métier, comme l'Event Storming, et le code soulève des questions pour beaucoup.
+Dans de nombreux projets, les choix techniques précèdent souvent une compréhension approfondie des besoins métier, bien
+que le logiciel soit avant tout conçu pour résoudre des problèmes métier. La transition entre les découvertes métier,
+comme l'Event Storming, et le code soulève des questions pour beaucoup.
 
-Le Domain-Driven Design (DDD) offre une approche méthodologique centrée sur la modélisation des systèmes selon la complexité des domaines métiers, particulièrement adaptée aux projets complexes.
+Le Domain-Driven Design (DDD) offre une approche méthodologique centrée sur la modélisation des systèmes selon la
+complexité des domaines métiers, particulièrement adaptée aux projets complexes.
 
-Cette formation de deux jours couvre les concepts fondamentaux du DDD et son application tout au long du cycle de développement logiciel.
+Cette formation de deux jours couvre les concepts fondamentaux du DDD et son application tout au long du cycle de
+développement logiciel.
 
 ### Module 1 – Découverte du domaine métier
 
