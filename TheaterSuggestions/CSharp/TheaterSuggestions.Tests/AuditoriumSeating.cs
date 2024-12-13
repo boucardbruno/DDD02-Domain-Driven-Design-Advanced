@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace SeatsSuggestions.Tests
+namespace SeatsSuggestions.Tests;
+
+public class AuditoriumSeating(Dictionary<string, Row> rows)
 {
-    public class AuditoriumSeating(Dictionary<string, Row> rows)
-    {
-        public readonly Dictionary<string, Row> Rows = rows;
-    }
+    public readonly Dictionary<string, Row> Rows = rows;
 }

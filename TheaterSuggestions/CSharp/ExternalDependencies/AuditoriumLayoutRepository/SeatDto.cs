@@ -1,8 +1,7 @@
-﻿namespace ExternalDependencies.AuditoriumLayoutRepository
+﻿namespace ExternalDependencies.AuditoriumLayoutRepository;
+
+public class SeatDto(string name, int category)
 {
-    public class SeatDto(string name, int category)
-    {
-        public string Name { get; } = name;
-        public int Category { get; } = category;
-    }
+    public string Name { get; } = name;
+    public int Category { get; } = category;
 }

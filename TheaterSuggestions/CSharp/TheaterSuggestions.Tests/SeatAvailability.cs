@@ -1,9 +1,8 @@
-﻿namespace SeatsSuggestions.Tests
+﻿namespace SeatsSuggestions.Tests;
+
+public enum SeatAvailability
 {
-    public enum SeatAvailability
-    {
-        Reserved,
-        Available,
-        Suggested
-    }
+    Reserved,
+    Available,
+    Suggested
 }
